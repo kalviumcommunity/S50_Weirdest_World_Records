@@ -1,0 +1,11 @@
+{
+  "name": "asap",
+  "version": "1.0.0",
+  "description": " The Weirdest Guinness World Records List project collects the strangest things people have ever done and got recognized for by Guinness. Users can see all sorts of unusual talents and strange accomplishments. They can also rate and comment on them. It's like exploring the most bizarre stuff people have ever done ! ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jithumon Jacob",
+  "license": "ISC"
+}
