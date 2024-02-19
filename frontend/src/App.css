@@ -1,0 +1,66 @@
+
+
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-container {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 10%;
+  padding: 40px;
+  background-color: #f19f5c;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(175, 22, 22, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.home-title {
+  font-size: 70px;
+  font-weight: bold;
+  color: #ec1f1f;
+  margin-bottom: 20px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  line-height: 1.2;
+  text-shadow: 
+    -1px -1px 0 #fff,  
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+}
+
+.home-description {
+  font-size: 25px;
+  color: #666;
+  line-height: 1.6;
+  align-items: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  animation: fadeInUp 1s ease 0.5s forwards;
+}
+
+.home-description::first-letter {
+  font-size: 150%; 
+  font-weight: bold;
+}
+
+.home-description a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.home-description a:hover {
+  text-decoration: underline;
+}
