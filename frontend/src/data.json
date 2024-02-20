@@ -1,0 +1,72 @@
+[
+    {
+        "User_ID": 6,
+        "Username": "sarahlee55",
+        "Email": "sarahlee@example.com",
+        "Password": "passwordGHI",
+        "Registration_Date": "2018-06-15"
+    },
+    {
+        "User_ID": 10,
+        "Username": "emmajohnson_21",
+        "Email": "emmajohnson@example.com",
+        "Password": "passwordSTU",
+        "Registration_Date": "2014-10-10"
+    },
+    {
+        "User_ID": 9,
+        "Username": "chrisbrown_88",
+        "Email": "chrisbrown@example.com",
+        "Password": "passwordPQR",
+        "Registration_Date": "2015-09-25"
+    },
+    {
+        "User_ID": 3,
+        "Username": "bob",
+        "Email": "bobjohnson@example.com",
+        "Password": "password789",
+        "Registration_Date": "2021-03-10"
+    },
+    {
+        "User_ID": 5,
+        "Username": "davidwilson88",
+        "Email": "davidwilson@example.com",
+        "Password": "passwordDEF",
+        "Registration_Date": "2019-05-01"
+    },
+    {
+        "User_ID": 7,
+        "Username": "michaeljackson_king",
+        "Email": "michaeljackson@example.com",
+        "Password": "passwordJKL",
+        "Registration_Date": "2017-07-20"
+    },
+    {
+        "User_ID": 2,
+        "Username": "alicesmith82",
+        "Email": "sdfghjklkjhgfdsxcdfvghjkl@example.com",
+        "Password": "password456",
+        "Registration_Date": "2022-02-20"
+    },
+    {
+        "User_ID": 4,
+        "Username": "emilybrown74",
+        "Email": "emilybrown@example.com",
+        "Password": "passwordABC",
+        "Registration_Date": "2020-04-05"
+    },
+    {
+        "User_ID": 8,
+        "Username": "jennifersmith93",
+        "Email": "jennifersmith@example.com",
+        "Password": "passwordMNO",
+        "Registration_Date": "2016-08-10"
+    },
+    {
+        "User_ID": 29,
+        "Username": "sill",
+        "Email": "hhhll",
+        "Password": "pas",
+        "Registration_Date": "2024-02-15T05:41:10.072+00:00"
+    }
+]

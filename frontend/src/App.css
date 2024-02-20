@@ -1,66 +1,98 @@
-
-
-
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.landing-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.6),  
+      rgba(0, 0, 0, 0.8)
+    ),
+    url('./assets/Untitled (6).png'); /* Adjust the path to your background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: animatedBackground 30s linear infinite;
 }
 
-.home-container {
-  max-width: 800px;
-  margin: 0 auto;
-  margin-top: 10%;
-  padding: 40px;
-  background-color: #f19f5c;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(175, 22, 22, 0.1);
+.landing-content {
+  text-align: center;
+}
+
+.landing-title {
+  color: rgb(255, 255, 255);
+  font-size: 4xl;
+  font-weight: extrabold;
+  margin-bottom: 6px;
+}
+
+.landing-description {
+  color: #000000;
+  font-size: lg;
+  font-weight: medium;
+  margin-bottom: 8px;
+}
+
+.auth-section {
+  margin-top: 50px;
+}
+
+.auth-title {
+  color: #2d3748;
+  font-size: 2xl;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.auth-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: fadeInUp 1s ease forwards;
 }
 
-.home-title {
-  font-size: 70px;
-  font-weight: bold;
-  color: #ec1f1f;
+.input-field {
+  width: 300px;
+  padding: 10px;
   margin-bottom: 20px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  line-height: 1.2;
-  text-shadow: 
-    -1px -1px 0 #fff,  
-    1px -1px 0 #fff,
-    -1px 1px 0 #fff,
-    1px 1px 0 #fff;
+  border: 1px solid #cbd5e0;
+  border-radius: 5px;
+  background-color: #666666; /* Grey color for input fields */
 }
 
-.home-description {
-  font-size: 25px;
-  color: #666;
-  line-height: 1.6;
-  align-items: center;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  animation: fadeInUp 1s ease 0.5s forwards;
+.auth-button {
+  color: #87ade7;
+  background-color: #2d3748;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.home-description::first-letter {
-  font-size: 150%; 
-  font-weight: bold;
+.auth-button:hover {
+  background-color: #2d3748;
 }
 
-.home-description a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: bold;
+.auth-footer {
+  margin-top: 20px;
 }
 
-.home-description a:hover {
-  text-decoration: underline;
+@keyframes animatedBackground {
+  from { background-position: 0 0; }
+  to { background-position: 100% 0; }
+}
+
+.landing-title, .landing-description, .auth-section {
+  animation: fadeInUp 1s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
