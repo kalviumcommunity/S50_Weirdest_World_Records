@@ -1,16 +1,28 @@
-import React from 'react';
-import data from '../data.json';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function DummyUser() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/users')
+      .then(response => {
+        setUsers(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+  }, []);
+
   return (
     <div className='ml-10 mt-10 mb-10'>
-      {data.map(item => (
-        <div key={item.User_ID} className="border p-4 mb-4 rounded-lg shadow-md bg-white">
-          <h2 className="text-xl font-bold mb-2 text-gray-800">{item.Username}</h2>
-          <p className="text-sm text-gray-600">User ID: {item.User_ID}</p>
-          <p className="text-sm text-gray-600">Email: {item.Email}</p>
-          <p className="text-sm text-gray-600">Password: {item.Password}</p>
-          <p className="text-sm text-gray-600">Registration Date: {item.Registration_Date}</p>
+      {users.map(user => (
+        <div key={user._id}>
+          <h2>User ID: {user.UserID}</h2>
+          <h2>Username: {user.Username}</h2>
+          <h2>Email: {user.Email}</h2>
+          <h2>Password: {user.Password}</h2>
+          <h2>Registration Date: {user.RegistrationDate}</h2>
         </div>
       ))}
     </div>
