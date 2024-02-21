@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
+// hello
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
