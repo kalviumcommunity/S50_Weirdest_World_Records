@@ -10,7 +10,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-// hello
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
@@ -24,7 +23,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Create
 router.post('/', async (req, res) => {
   try {
     const newData = new userModel(req.body);
@@ -35,7 +33,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update (PUT)
 router.put('/:id', async (req, res) => {
   const id = req.params.id;
   try {
@@ -49,7 +46,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Update (PATCH)
 router.patch('/:id', async (req, res) => {
   const id = req.params.id;
   try {
