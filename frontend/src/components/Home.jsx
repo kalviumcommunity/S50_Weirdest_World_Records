@@ -19,7 +19,7 @@ function Home() {
             <button type="submit" className="auth-button bg-grey-500">Sign In</button>
           </form>
           <p className="auth-footer text-sm text-blue-600">
-            Don't have an account? <Link to="/mainpage" className="text-blue-500 underline">Sign Up</Link>
+            Don't have an account? <Link to="/signup" className="text-blue-500 underline">Sign Up</Link>
           </p>
         </div>
       </div>
