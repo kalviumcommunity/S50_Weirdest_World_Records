@@ -1,7 +1,7 @@
 import React from 'react';
-import data from '../data.json';
+import data from './data.json';
 
-function DummyUser() {
+function Dummy() {
   return (
     <div className='ml-10 mt-10 mb-10'>
       {data.map(item => (
@@ -17,4 +17,4 @@ function DummyUser() {
   );
 }
 
-export default DummyUser;
+export default Dummy;
