@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './SignupForm.css'
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,8 @@ const SignupForm = () => {
     Password: '',
     RegistrationDate: ''
   });
+
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,27 +22,31 @@ const SignupForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     const userData = {
       Username: formData.Username,
       Email: formData.Email,
       Password: formData.Password,
     };
-  
-    axios.post('http://localhost:3000/users', userData)
+
+    axios.post('http://localhost:4000/users', userData)
       .then(response => {
         console.log(response.data);
+        setSuccessMessage('Signup successful! Redirecting to main page...');
+        setTimeout(() => {
+          window.location.href = '/mainpage'; // Redirect to main page after 2 seconds
+        }, 2000);
       })
       .catch(error => {
         console.error('Error:', error);
         // Handle error, show error message
       });
   };
-  
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">Signup Form</h2>
+    <div className="signup-form-container">
+      <h2 className="signup-form-header">Create Account</h2>
+      {successMessage && <div className="text-green-500">{successMessage}</div>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="v" className="block mb-1">Username:</label>
@@ -49,7 +56,8 @@ const SignupForm = () => {
             name="Username"
             value={formData.Username}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="input-field"
+            required  // Add the required attribute here
           />
         </div>
         <div>
@@ -60,7 +68,8 @@ const SignupForm = () => {
             name="Email"
             value={formData.Email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="input-field"
+            required  // Add the required attribute here
           />
         </div>
         <div>
@@ -71,10 +80,11 @@ const SignupForm = () => {
             name="Password"
             value={formData.Password}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="input-field"
+            required  // Add the required attribute here
           />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300">Signup</button>
+        <button type="submit" className="submit-button">Create Account</button>
       </form>
     </div>
   );
