@@ -1,4 +1,4 @@
-.signup-form-container {
+.login-form-container {
     max-width: 400px;
     margin: 0 auto;
     margin-top: 50px;
@@ -9,12 +9,12 @@
     color: white;
   }
   
-  .signup-form-header {
+  .login-form-header {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #ffd700; 
-    margin-left: 80px;/* Gold text color */
+    color: #ffd700; /* Gold text color */
+    margin-left: 80px; /* Gold text color */
   }
   
   .input-field {
@@ -50,4 +50,7 @@
   .submit-button:hover {
     background-color: #ffec80; /* Lighter gold on hover */
   }
-  
+
+  .text-red-500 {
+    color: #ff4444; /* Red color */
+  }

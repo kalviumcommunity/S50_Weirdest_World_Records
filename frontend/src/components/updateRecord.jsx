@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
+
 import './UpdateRecord.css';
 
 function UpdateRecord() {
@@ -14,7 +15,7 @@ function UpdateRecord() {
   });
 
   const [updatedMessage, setUpdatedMessage] = useState('');
-  const history = useHistory();
+  // const history = useHistory();
   const { id } = useParams();
 
   useEffect(() => {

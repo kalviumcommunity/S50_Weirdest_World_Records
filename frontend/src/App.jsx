@@ -8,6 +8,7 @@ import ServicePage from './components/ServicePage';
 import ContactPage from './components/ContactPage';
 import MainPage from './components/Mainpage';
 import UpdateRecord from './components/updateRecord';
+import LoginForm from './components/LoginForm';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/signup' element={<SignupForm />} />
+        <Route path='/login' element={<LoginForm />} />
         <Route path='/aboutpage' element={<AboutPage />} />
         <Route path='/servicepage' element={<ServicePage />} />
         <Route path='/contactpage' element={<ContactPage />} />
