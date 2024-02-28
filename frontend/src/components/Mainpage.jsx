@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import axios from 'axios';
+import Cookies from 'js-cookie'; // Import Cookies library
 import './MainPage.css'; 
 
 function MainPage() {
@@ -10,7 +11,7 @@ function MainPage() {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
+    const storedUsername = Cookies.get('username'); // Get username from cookies
     if (storedUsername) {
       setUsername(storedUsername);
     }
@@ -27,8 +28,8 @@ function MainPage() {
   };
 
   const handleLogout = () => {
-    // Clear the username from localStorage and state
-    localStorage.removeItem('username');
+    // Clear the username from cookies and state
+    Cookies.remove('username');
     setUsername('');
   };
 
@@ -62,7 +63,7 @@ function MainPage() {
           {username && (
             <div className="username">
               <span>Welcome, {username}</span>
-              <button onClick={handleLogout}>Logout</button>
+              <button className='bg-red-500' onClick={handleLogout}>Logout</button>
             </div>
           )}
           <div className="theme-toggle">

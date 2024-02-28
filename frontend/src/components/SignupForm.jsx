@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie'; // Import the js-cookie library
 import './SignupForm.css'
 
 const SignupForm = () => {
@@ -33,6 +34,11 @@ const SignupForm = () => {
       .then(response => {
         console.log(response.data);
         setSuccessMessage('Signup successful! Redirecting to main page...');
+
+        // Store user details in cookies
+        Cookies.set('username', formData.Username);
+        Cookies.set('email', formData.Email);
+
         setTimeout(() => {
           window.location.href = '/mainpage'; // Redirect to main page after 2 seconds
         }, 2000);
