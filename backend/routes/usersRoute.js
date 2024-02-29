@@ -26,8 +26,9 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create a new User
-router.post('/', async (req, res) => {
+router.post('/',  async (req, res) => {
   try {
+    // joi validation
     const newData = new User(req.body);
     const savedData = await newData.save();
     res.status(201).json(savedData);
@@ -45,6 +46,7 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
     res.status(200).json(updatedData);
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
