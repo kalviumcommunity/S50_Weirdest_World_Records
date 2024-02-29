@@ -1,19 +1,29 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/userModel');
+const jwt = require('jsonwebtoken');
 const Joi = require('joi');
+require('dotenv').config();
+
 
 // Joi schema for user validation
 const userSchema = Joi.object({
   Username: Joi.string().required(),
   Email: Joi.string().email().required(),
-  Password: Joi.string().min(6).required(), 
+  Password: Joi.string().min(6).required(),
 });
+
+// Generate JWT token
+const generateToken = (user) => {
+  return jwt.sign({ email: user.Email, username: user.Username }, process.env.JWT_SECRET, {
+    expiresIn: '1h' // Token expires in 1 hour
+  });
+};
 
 // GET all users
 router.get('/', async (req, res) => {
   try {
-    const data = await User.find(); 
+    const data = await User.find();
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -34,7 +44,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create a new User
+// Create a new User and generate JWT token
 router.post('/', async (req, res) => {
   try {
     // Validate the request body
@@ -46,7 +56,11 @@ router.post('/', async (req, res) => {
     // If validation passes, proceed with saving the user
     const newData = new User(req.body);
     const savedData = await newData.save();
-    res.status(201).json(savedData);
+
+    // Generate JWT token
+    const token = generateToken(savedData);
+
+    res.status(201).json({ user: savedData, token: token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -61,7 +75,6 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
     res.status(200).json(updatedData);
-    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

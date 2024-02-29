@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie'; // Import Cookies library
+import Cookies from 'js-cookie';
 import './LoginForm.css';
 
 const LoginForm = () => {
@@ -20,41 +20,28 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios.get('http://localhost:4000/users')
-      .then(response => {
-        const userData = response.data;
+    try {
+      const response = await axios.post('http://localhost:4000/users', formData);
+      const { user, token } = response.data;
 
-        // Check if the entered email and password match any user record
-        const user = userData.find(user => user.Email === formData.Email && user.Password === formData.Password);
+      // Store token in cookies
+      Cookies.set('token', token);
+      Cookies.set('username', user.Username);
 
-        if (user) {
-          // Successful login
-          console.log('Login successful');
-          setErrorMessage('');
-          setSuccessMessage('Login successful! Redirecting to main page...');
-
-          // Store username in cookies
-          Cookies.set('username', user.Username);
-
-          // Redirect to main page after 2 seconds
-          setTimeout(() => {
-            window.location.href = '/mainpage';
-          }, 2000);
-        } else {
-          // Invalid credentials
-          console.log('Invalid email or password');
-          setErrorMessage('Invalid email or password');
-          setSuccessMessage('');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        setErrorMessage('Error logging in');
-        setSuccessMessage('');
-      });
+      // Redirect to main page after successful login
+      setErrorMessage('');
+      setSuccessMessage('Login successful! Redirecting to main page...');
+      setTimeout(() => {
+        window.location.href = '/mainpage';
+      }, 2000);
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('Invalid email or password');
+      setSuccessMessage('');
+    }
   };
 
   return (

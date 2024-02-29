@@ -1,6 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const { Record } = require('../models/recordModel');
+// const jwt = require('jsonwebtoken');
+
+// Authenticate middleware
+// const authenticate = (req, res, next) => {
+//   const token = req.headers.authorization;
+//   if (!token) {
+//     return res.status(401).json({ error: "Unauthorized" });
+//   }
+//   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+//     if (err) {
+//       return res.status(403).json({ error: "Invalid token" });
+//     }
+//     req.user = decoded;
+//     next();
+//   });
+// };
+
+// Apply authentication middleware to record routes
+// router.use(authenticate);
 
 // GET all records
 router.get('/', async (req, res) => { 
