@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie'; // Import the js-cookie library
-import './SignupForm.css'
+import Cookies from 'js-cookie';
+import './SignupForm.css';
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
     Username: '',
     Email: '',
     Password: '',
-    RegistrationDate: ''
   });
 
   const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,41 +21,40 @@ const SignupForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userData = {
-      Username: formData.Username,
-      Email: formData.Email,
-      Password: formData.Password,
-    };
+    try {
+      const response = await axios.post('http://localhost:4000/users', formData);
+      const { user, token } = response.data;
 
-    axios.post('http://localhost:4000/users', userData)
-      .then(response => {
-        console.log(response.data);
-        setSuccessMessage('Signup successful! Redirecting to main page...');
+      // Store token and user details securely
+      Cookies.set('token', token, { secure: true, sameSite: 'strict' });
+      Cookies.set('username', user.Username, { secure: true, sameSite: 'strict' });
+      Cookies.set('email', user.Email, { secure: true, sameSite: 'strict' });
 
-        // Store user details in cookies
-        Cookies.set('username', formData.Username);
-        Cookies.set('email', formData.Email);
 
-        setTimeout(() => {
-          window.location.href = '/mainpage'; // Redirect to main page after 2 seconds
-        }, 2000);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // Handle error, show error message
-      });
+  
+
+      // Show success message and redirect to main page
+      setSuccessMessage('Signup successful! Redirecting to main page...');
+      setTimeout(() => {
+        window.location.href = '/mainpage';
+      }, 2000);
+    } catch (error) {
+      console.error('Error while signing up:', error);
+      setErrorMessage('Error signing up');
+    }
   };
 
   return (
     <div className="signup-form-container">
       <h2 className="signup-form-header">Create Account</h2>
       {successMessage && <div className="text-green-500">{successMessage}</div>}
+      {errorMessage && <div className="text-red-500">{errorMessage}</div>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="v" className="block mb-1">Username:</label>
+          <label htmlFor="Username" className="block mb-1">Username:</label>
           <input
             type="text"
             id="Username"
@@ -63,11 +62,11 @@ const SignupForm = () => {
             value={formData.Username}
             onChange={handleChange}
             className="input-field"
-            required  // Add the required attribute here
+            required
           />
         </div>
         <div>
-          <label htmlFor="email" className="block mb-1">Email:</label>
+          <label htmlFor="Email" className="block mb-1">Email:</label>
           <input
             type="email"
             id="Email"
@@ -75,11 +74,11 @@ const SignupForm = () => {
             value={formData.Email}
             onChange={handleChange}
             className="input-field"
-            required  // Add the required attribute here
+            required
           />
         </div>
         <div>
-          <label htmlFor="password" className="block mb-1">Password:</label>
+          <label htmlFor="Password" className="block mb-1">Password:</label>
           <input
             type="password"
             id="Password"
@@ -87,7 +86,7 @@ const SignupForm = () => {
             value={formData.Password}
             onChange={handleChange}
             className="input-field"
-            required  // Add the required attribute here
+            required
           />
         </div>
         <button type="submit" className="submit-button">Create Account</button>
