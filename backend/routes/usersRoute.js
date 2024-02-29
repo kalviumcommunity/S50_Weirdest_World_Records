@@ -1,7 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/userModel');
-// GET all 
+const Joi = require('joi');
+
+// Joi schema for user validation
+const userSchema = Joi.object({
+  Username: Joi.string().required(),
+  Email: Joi.string().email().required(),
+  Password: Joi.string().min(6).required(), 
+});
+
+// GET all users
 router.get('/', async (req, res) => {
   try {
     const data = await User.find(); 
@@ -28,6 +37,13 @@ router.get('/:id', async (req, res) => {
 // Create a new User
 router.post('/', async (req, res) => {
   try {
+    // Validate the request body
+    const { error } = userSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
+
+    // If validation passes, proceed with saving the user
     const newData = new User(req.body);
     const savedData = await newData.save();
     res.status(201).json(savedData);
@@ -45,6 +61,7 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
     res.status(200).json(updatedData);
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -77,7 +94,5 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-
 
 module.exports = router;
