@@ -33,7 +33,7 @@ function Home() {
       <div className="landing-page">
         <div className="landing-content">
           <div className="hero-section">
-            <h1 className="hero-title">Discover the <br /> <span>Extraordinary</span></h1>
+            <h1 className="hero-title">Discover the <br /> <span className='bg-yellow-500'>Weirdest</span></h1>
             <p className="hero-description">
               Welcome to the world of extraordinary achievements! Explore the most fascinating records set by individuals from around the globe.
               <br />

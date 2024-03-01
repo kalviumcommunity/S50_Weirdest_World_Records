@@ -1,17 +1,20 @@
+// MainPage.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import axios from 'axios';
-import Cookies from 'js-cookie'; // Import Cookies library
-import './MainPage.css'; 
+import Cookies from 'js-cookie';
+import './MainPage.css';
 
 function MainPage() {
   const [username, setUsername] = useState('');
   const [postData, setPostData] = useState([]);
+  const [filteredPostData, setFilteredPostData] = useState([]);
+  const [selectedUsername, setSelectedUsername] = useState('All');
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    const storedUsername = Cookies.get('username'); // Get username from cookies
+    const storedUsername = Cookies.get('username');
     if (storedUsername) {
       setUsername(storedUsername);
     }
@@ -22,29 +25,38 @@ function MainPage() {
     try {
       const response = await axios.get('http://localhost:4000/records');
       setPostData(response.data);
+      setFilteredPostData(response.data);
     } catch (error) {
       console.error('Error fetching post data:', error);
     }
   };
 
   const handleLogout = () => {
-    // Clear the username from cookies and state
     Cookies.remove('username');
     setUsername('');
   };
 
   const toggleDarkMode = () => {
-    // Toggle dark mode state
     setDarkMode(!darkMode);
   };
 
   const handleDeletePost = async (postId) => {
     try {
       await axios.delete(`http://localhost:4000/records/${postId}`);
-      // Update state to remove the deleted post
-      setPostData(prevPosts => prevPosts.filter(post => post._id !== postId));
+      setPostData((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+      setFilteredPostData((prevPosts) => prevPosts.filter((post) => post._id !== postId));
     } catch (error) {
       console.error('Error deleting post:', error);
+    }
+  };
+
+  const handleUserSelect = (selectedUser) => {
+    setSelectedUsername(selectedUser);
+    if (selectedUser === 'All') {
+      setFilteredPostData(postData);
+    } else {
+      const filteredPosts = postData.filter((post) => post.Username === selectedUser);
+      setFilteredPostData(filteredPosts);
     }
   };
 
@@ -63,7 +75,7 @@ function MainPage() {
           {username && (
             <div className="username">
               <span>Welcome, {username}</span>
-              <button className='bg-red-500' onClick={handleLogout}>Logout</button>
+              <button className="logout" onClick={handleLogout}>Logout</button>
             </div>
           )}
           <div className="theme-toggle">
@@ -75,30 +87,39 @@ function MainPage() {
         </div>
       </nav>
       <div className='line-btw bg-gradient'></div>
-      <div className="posting-section">
-      </div>
-      <div className="view-data-section">
-        <div className="post-list">
-          {postData.map(post => (
-            <div key={post._id} className="post-item">
-              <div className="post-box bg-gray-200 rounded p-4 mb-4">
-                <h3>{post.RecordTitle}</h3>
-                <p>Record Holder: {post.RecordHolder}</p>
-                <p>Description: {post.Description}</p>
-                <p>Date Achieved: {post.DateAchieved}</p>
-                <p>Location: {post.Location}</p>
-                <p>Username: {post.Username}</p>
-                <div className="button-group mt-2">
-                  <Link to={`/update/${post._id}`} className="update-btn bg-blue-500 text-white px-4 py-2 mr-2 rounded">
-                    Update
-                  </Link>
-                  <button className="delete-btn bg-red-500 text-white px-4 py-2 rounded" onClick={() => handleDeletePost(post._id)}>
-                    Delete
-                  </button>
+      <div className="content-wrapper">
+        <div className="left-content">
+          <div className="posting-section">
+            <h2>Posting Section</h2>
+            {/* Add your posting section UI elements and functionality */}
+            <button className="post-button">Post</button>
+          </div>
+          <div className="view-data-section">
+            <select onChange={(e) => handleUserSelect(e.target.value)} value={selectedUsername}>
+              <option value="All">All Users</option>
+              {[...new Set(postData.map((post) => post.Username))].map((user, index) => (
+                <option key={index} value={user}>{user}</option>
+              ))}
+            </select>
+            <div className="post-list">
+              {filteredPostData.map((post) => (
+                <div key={post._id} className="post-item">
+                  <div className="post-box bg-gray-200 rounded p-4 mb-4">
+                    <h3>{post.RecordTitle}</h3>
+                    <p>Record Holder: {post.RecordHolder}</p>
+                    <p>Description: {post.Description}</p>
+                    <p>Date Achieved: {post.DateAchieved}</p>
+                    <p>Location: {post.Location}</p>
+                    <p>Username: {post.Username}</p>
+                    <div className="button-group mt-2">
+                      <Link to={`/update/${post._id}`} className="update-btn bg-blue-500 text-white px-4 py-2 mr-2 rounded">Update</Link>
+                      <button className="delete-btn bg-red-500 text-white px-4 py-2 rounded" onClick={() => handleDeletePost(post._id)}>Delete</button>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
