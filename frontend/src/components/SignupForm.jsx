@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 import './SignupForm.css';
 
 const SignupForm = () => {
+  const navigate= useNavigate();
   const [formData, setFormData] = useState({
     Username: '',
     Email: '',
@@ -39,7 +41,7 @@ const SignupForm = () => {
       // Show success message and redirect to main page
       setSuccessMessage('Signup successful! Redirecting to main page...');
       setTimeout(() => {
-        window.location.href = '/mainpage';
+        navigate("/mainpage")
       }, 2000);
     } catch (error) {
       console.error('Error while signing up:', error);
