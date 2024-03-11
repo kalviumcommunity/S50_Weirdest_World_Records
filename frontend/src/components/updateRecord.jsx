@@ -21,7 +21,7 @@ function UpdateRecord() {
   useEffect(() => {
     const fetchRecordData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/records/${id}`);
+        const response = await axios.get(`https://s50-weirdest-world-records-1.onrender.com/${id}`);
         setRecord(response.data);
       } catch (error) {
         console.error('Error fetching record data:', error);
@@ -43,7 +43,7 @@ function UpdateRecord() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:4000/records/${id}`, record);
+      await axios.put(`https://s50-weirdest-world-records-1.onrender.com/records/${id}`, record);
       setUpdatedMessage('Record updated successfully!');
       console.log('Record updated successfully!');
       setTimeout(() => {

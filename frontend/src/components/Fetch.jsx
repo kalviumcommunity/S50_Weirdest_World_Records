@@ -5,7 +5,7 @@ import axios from 'axios';
 function DummyUser() {
   const [users, setUsers] = useState([]);
   useEffect(()=>{
-    axios.get('http://localhost:3000/users')
+    axios.get('https://s50-weirdest-world-records-1.onrender.com/users')
     .then((users)=>{
       setUsers( users.data)
     })
