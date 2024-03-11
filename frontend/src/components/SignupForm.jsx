@@ -25,7 +25,7 @@ const SignupForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:4000/users', formData);
+      const response = await axios.post('https://s50-weirdest-world-records-1.onrender.com/users', formData);
       const { user, token } = response.data;
 
       // Store token and user details securely

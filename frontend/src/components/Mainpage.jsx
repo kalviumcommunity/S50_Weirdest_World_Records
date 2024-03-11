@@ -23,7 +23,7 @@ function MainPage() {
 
   const fetchPostData = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/records');
+      const response = await axios.get('https://s50-weirdest-world-records-1.onrender.com/records');
       setPostData(response.data);
       setFilteredPostData(response.data);
     } catch (error) {
@@ -42,7 +42,7 @@ function MainPage() {
 
   const handleDeletePost = async (postId) => {
     try {
-      await axios.delete(`http://localhost:4000/records/${postId}`);
+      await axios.delete(`https://s50-weirdest-world-records-1.onrender.com/records/${postId}`);
       setPostData((prevPosts) => prevPosts.filter((post) => post._id !== postId));
       setFilteredPostData((prevPosts) => prevPosts.filter((post) => post._id !== postId));
     } catch (error) {
@@ -96,7 +96,7 @@ function MainPage() {
           </div>
           <div className="view-data-section">
             <select onChange={(e) => handleUserSelect(e.target.value)} value={selectedUsername}>
-              <option value="All">All Users</option>
+              <option value="All">All Users</option>        
               {[...new Set(postData.map((post) => post.Username))].map((user, index) => (
                 <option key={index} value={user}>{user}</option>
               ))}
