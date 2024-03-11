@@ -1,98 +1,180 @@
-.landing-page {
-  height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* Navbar styles */
+.navbar {
+  background-color: #000003; /* Dark blue background */
+  color: #ffffff; /* Gold text color */
+  padding: 20px 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  height: 50px;
+  background-color: black;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background-image: 
-    linear-gradient(
-      rgba(0, 0, 0, 0.6),  
-      rgba(0, 0, 0, 0.8)
-    ),
-    url('./assets/Untitled (6).png'); /* Adjust the path to your background image */
+}
+
+.logo {
+  margin-right: 20px;
+}
+
+.logo-img {
+  height: 150px;
+  margin-right: 800px; /* Adjust size */
+
+}
+
+.nav-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+.nav-links li {
+  display: inline-block; /* Changed to inline-block for easier positioning */
+  margin-right: 20px;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards; /* Apply fade-in animation */
+}
+
+.nav-links li:last-child {
+  margin-right: 0;
+}
+
+.nav-links li a {
+  color: #ffffff; /* Gold text color */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease; /* Smooth color transition */
+  font-family:'Roboto', sans-serif;
+  
+}
+
+.nav-links li a:hover {
+  color: #ffec80; /* Lighter gold on hover */
+}
+
+/* Landing page styles */
+.landing-page {
+  padding: 80px 0;
+  text-align: center;
+  color: #ffffff;
+  font-size: xx-large;
+  position: relative;
+  overflow: hidden;
+  background-image: url('./assets/bg.png'); /* Background image */
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  animation: animatedBackground 30s linear infinite;
+  background-position: left top;
+  height: 620px;
+  animation: scrollBackground 30s linear infinite; /* Animation for scrolling background */
+}
+
+.hero-title {
+  font-size: 50px;
+  font-weight: 900;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.5;
+  margin-top: 100px;
+  color: #ffffff; /* White text color */
+  border: 2px solid #ffd700; /* Stylish border */
+  padding: 10px 20px;
+  display: inline-block; 
+  border-radius: 10px; /* Rounded border corners */
 }
 
 .landing-content {
-  text-align: center;
+  max-width: 800px;
+  margin-top: 300px;
+  margin: 0 auto;
+  opacity: 0; /* Initially set to 0 for animation */
+  animation: fadeIn 1s forwards; /* Apply fade-in animation */
 }
 
-.landing-title {
-  color: rgb(255, 255, 255);
-  font-size: 4xl;
-  font-weight: extrabold;
-  margin-bottom: 6px;
+.hero-section {
+  margin-bottom: 500px;
 }
 
-.landing-description {
-  color: #000000;
-  font-size: lg;
-  font-weight: medium;
-  margin-bottom: 8px;
-}
-
-.auth-section {
-  margin-top: 50px;
-}
-
-.auth-title {
-  color: #2d3748;
-  font-size: 2xl;
+.hero-description {
+  margin-top: 20px;
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 4px;
+  color: #eeeee6; /* White text color */
+
 }
 
-.auth-form {
+.btn-group {
+  margin-top: 40px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  opacity: 0; /* Initially set to 0 for animation */
+  animation: slideInUp 1s forwards; /* Apply slide-in animation */
+  font-family: 'Roboto', sans-serif;
 }
 
-.input-field {
-  width: 300px;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #cbd5e0;
-  border-radius: 5px;
-  background-color: #666666; /* Grey color for input fields */
-}
-
-.auth-button {
-  color: #87ade7;
-  background-color: #2d3748;
-  padding: 10px 20px;
+.get-started-btn,
+.login-btn {
+  background-image: linear-gradient(to right, #ff7e5f, #f88e3d);
+  color: #ffffff; /* White text color */
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 12px 24px;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
+  margin-right: 20px;
   transition: background-color 0.3s ease;
+  font-family: 'Arial', sans-serif; /* Change font family */
 }
 
-.auth-button:hover {
-  background-color: #2d3748;
+.get-started-btn:hover,
+.login-btn:hover {
+  background-image: linear-gradient(to right, #48c6ef, #253981); /* Example gradient colors */
 }
 
 .auth-footer {
-  margin-top: 20px;
+  font-size: 16px;
+  color: #ffffff; /* White text color */
 }
 
-@keyframes animatedBackground {
-  from { background-position: 0 0; }
-  to { background-position: 100% 0; }
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.landing-title, .landing-description, .auth-section {
-  animation: fadeInUp 1s ease-in-out;
-}
-
-@keyframes fadeInUp {
-  0% {
+@keyframes slideInUp {
+  from {
     opacity: 0;
     transform: translateY(20px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
+/* Animation for scrolling background */
+@keyframes scrollBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+/* Additional Animations for Navbar Links */
+.nav-links li:nth-child(1) { animation-delay: 0.2s; }
+.nav-links li:nth-child(2) { animation-delay: 0.4s; }
+.nav-links li:nth-child(3) { animation-delay: 0.6s; }
