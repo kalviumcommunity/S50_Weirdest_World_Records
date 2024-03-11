@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import './SignupForm.css';
 
 const SignupForm = () => {
+  const navigate= useNavigate();
   const [formData, setFormData] = useState({
     Username: '',
     Email: '',
     Password: '',
-    RegistrationDate: ''
   });
+
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,64 +23,75 @@ const SignupForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const userData = {
-      Username: formData.Username,
-      Email: formData.Email,
-      Password: formData.Password,
-    };
-  
-    axios.post('http://localhost:3000/users', userData)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // Handle error, show error message
-      });
-  };
+
+    try {
+      const response = await axios.post('https://s50-weirdest-world-records-1.onrender.com/users', formData);
+      const { user, token } = response.data;
+
+      // Store token and user details securely
+      Cookies.set('token', token, { secure: true, sameSite: 'strict' });
+      Cookies.set('username', user.Username, { secure: true, sameSite: 'strict' });
+      Cookies.set('email', user.Email, { secure: true, sameSite: 'strict' });
+
+
   
 
+      // Show success message and redirect to main page
+      setSuccessMessage('Signup successful! Redirecting to main page...');
+      setTimeout(() => {
+        navigate("/mainpage")
+      }, 2000);
+    } catch (error) {
+      console.error('Error while signing up:', error);
+      setErrorMessage('Error signing up');
+    }
+  };
+
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">Signup Form</h2>
+    <div className="signup-form-container">
+      <h2 className="signup-form-header">Create Account</h2>
+      {successMessage && <div className="text-green-500">{successMessage}</div>}
+      {errorMessage && <div className="text-red-500">{errorMessage}</div>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="v" className="block mb-1">Username:</label>
+          <label htmlFor="Username" className="block mb-1">Username:</label>
           <input
             type="text"
             id="Username"
             name="Username"
             value={formData.Username}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="input-field"
+            required
           />
         </div>
         <div>
-          <label htmlFor="email" className="block mb-1">Email:</label>
+          <label htmlFor="Email" className="block mb-1">Email:</label>
           <input
             type="email"
             id="Email"
             name="Email"
             value={formData.Email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="input-field"
+            required
           />
         </div>
         <div>
-          <label htmlFor="password" className="block mb-1">Password:</label>
+          <label htmlFor="Password" className="block mb-1">Password:</label>
           <input
             type="password"
             id="Password"
             name="Password"
             value={formData.Password}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="input-field"
+            required
           />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300">Signup</button>
+        <button type="submit" className="submit-button">Create Account</button>
       </form>
     </div>
   );
